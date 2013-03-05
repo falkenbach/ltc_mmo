@@ -25,6 +25,7 @@ my $configdir = "config/";
 my $config_fullpath = $basedir . $configdir . $configfile;
 my $database_fullpath = $basedir . $configdir . $databasefile;
 my $sqlfile = "../cloudrealms.sql";
+my $htaccess = "../_.htaccess";
 
 if ( -d $basedir){
 	print " - Found basedir\n";
@@ -123,4 +124,9 @@ if($load_database eq 'y' || $load_database eq 'Y'){
 	`mysql -u root -p $database < $sqlfile`;
 	print "Done loading the database.\n";
 }
+
+print "Renaming _.htaccess\n";
+`mv $htaccess .htaccess`;
+print "****** REMINDER *******\n";
+print "Make sure you have AllowOverrides set to All in your apache configuration for this directory\n";
 print "All done.\n";
