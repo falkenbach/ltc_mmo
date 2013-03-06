@@ -176,8 +176,8 @@ class Auth extends MY_Controller {
 		}
 
 		$this->form_validation->set_rules('username', 'Username', 'required|trim|xss_clean');
-		$this->form_validation->set_rules('first_name', 'First Name', 'required|trim|xss_clean');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'required|trim|xss_clean');
+		$this->form_validation->set_rules('first_name', 'First Name', 'trim|xss_clean');
+		$this->form_validation->set_rules('last_name', 'Last Name', 'trim|xss_clean');
 		$this->form_validation->set_rules('email', 'Email Address', 'required|trim|valid_email');
 		$this->form_validation->set_rules('company', 'Company Name', 'trim|xss_clean');
 		$this->form_validation->set_rules('phone', 'Phone', 'trim|xss_clean');
