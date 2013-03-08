@@ -126,7 +126,7 @@ if($load_database eq 'y' || $load_database eq 'Y'){
 }
 
 print "Renaming _.htaccess\n";
-`mv $htaccess .htaccess`;
+`mv $htaccess ../.htaccess`;
 print "****** REMINDER *******\n";
 print "Make sure you have AllowOverrides set to All in your apache configuration for this directory\n";
 print "All done.\n";

@@ -335,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 
 INSERT INTO `settings` (`option_id`, `option_name`, `option_value`, `option_group`, `auto_load`) VALUES
 (1, 'site_name', 'SITE NAME', 'site', 'yes'),
-(2, 'game_title', 'cloudrealms', 'addon', 'yes'),
+(2, 'game_title', 'LTC MMO', 'addon', 'yes'),
 (3, 'test', 'test', 'addon', 'yes');
 
 -- --------------------------------------------------------
