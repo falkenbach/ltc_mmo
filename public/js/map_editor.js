@@ -35,6 +35,9 @@ $(function() {
 		});
 	}
 	setTimeout(function(){$('#monolog').fadeOut(); }, 900);
+	$("#initialize_map").click(function(){
+		first_save($("#location_name").val());
+	});
 });
 
 /* Global vars */

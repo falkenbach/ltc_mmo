@@ -63,6 +63,7 @@
 								<li><a style="cursor:pointer;" onclick="open_monsters();">Monsters</a></li>
 								<li><a style="cursor:pointer;" onclick="open_characters();">Characters</a></li>
 								<li class="divider"></li>
+								<li><a style="cursor:pointer;" href="#" id="initialize_map" class="drop_down_item">Initialize Map</a></li>
 								<li><a style="cursor:pointer;" href="<?=base_url('editor/map/delete/'.$this->uri->segment(4))?>">Delete Location</a></li>
 								<li><a style="cursor:pointer;" href="<?=base_url('editor/map')?>">Exit</a></li>
 								<?php } ?>
