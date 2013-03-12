@@ -57,10 +57,10 @@ class Ajax extends MY_Controller {
 						if($tile_data[0]==$_GET['id']){
 							// {0|x|y|tilesheet|xoff|yoff}
 							$updated_tile = '{'.$tile_data[0].'|'.$tile_data[1].'|'.$tile_data[2].'|'.$_GET['tilesheet'].'|'.$_GET['offx'].'|'.$_GET['offy'].'|'.$_GET['size'].'}';
+							$data = str_replace($original_tile, $updated_tile, $data);
 							break;
 						}
 					}
-					$data = str_replace($original_tile, $updated_tile, $data);
 					$result = $this->db->query("UPDATE locations SET $_GET[layer]_map = '$data' WHERE name = '$_GET[location]'");
 					if($result){
 						echo "success";
