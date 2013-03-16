@@ -413,6 +413,47 @@ CREATE TABLE IF NOT EXISTS `zodiacs` (
 INSERT INTO `zodiacs` (`id`, `name`, `description`, `attributes`, `img`, `deleted`) VALUES
 (2, 'Shadow', 'This is a dark zodiac that gives the player the ability of invisibility', '{"sta":"10","str":"10","dex":"10","int":"10","cha":"10","wis":"10","wil":"10","luc":"10"}', '', 0);
 
+-- Quests Table
+
+CREATE TABLE IF NOT EXISTS `quests` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `verbiage` text NOT NULL,
+  `giver` INTEGER NOT NULL,
+  `turnin` INTEGER NOT NULL,
+  `monteary_reward` INTEGER,
+  `item_reward` INTEGER,
+  `experience` INTEGER,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- Quest Requirements Table
+
+CREATE TABLE IF NOT EXISTS `quest_requirements` (
+  `qid` INTEGER NOT NULL,
+  `mob_id` INTEGER,
+  `mob_quantity` INTEGER,
+  `mob_action` INTEGER,
+  `npc_id` INTEGER,
+  `npc_action` INTEGER,
+  `item_id` INTEGER,
+  `item_quantity` INTEGER,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
+
+-- Quest Action Table
+
+CREATE TABLE IF NOT EXISTS `quest_actions`(
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(150) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+INSERT INTO `quest_actions` (description) VALURES ('Kill');
+INSERT INTO `quest_actions` (description) VALURES ('Find');
+INSERT INTO `quest_actions` (description) VALURES ('Save');
+INSERT INTO `quest_actions` (description) VALURES ('Talk To');
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
