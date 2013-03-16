@@ -438,7 +438,6 @@ CREATE TABLE IF NOT EXISTS `quest_requirements` (
   `npc_action` INTEGER,
   `item_id` INTEGER,
   `item_quantity` INTEGER,
-  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
 
 -- Quest Action Table
@@ -448,10 +447,10 @@ CREATE TABLE IF NOT EXISTS `quest_actions`(
   `description` VARCHAR(150) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-INSERT INTO `quest_actions` (description) VALURES ('Kill');
-INSERT INTO `quest_actions` (description) VALURES ('Find');
-INSERT INTO `quest_actions` (description) VALURES ('Save');
-INSERT INTO `quest_actions` (description) VALURES ('Talk To');
+INSERT INTO `quest_actions` (description) VALUES ('Kill');
+INSERT INTO `quest_actions` (description) VALUES ('Find');
+INSERT INTO `quest_actions` (description) VALUES ('Save');
+INSERT INTO `quest_actions` (description) VALUES ('Talk To');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
