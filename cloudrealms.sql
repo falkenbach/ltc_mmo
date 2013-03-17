@@ -437,14 +437,15 @@ CREATE TABLE IF NOT EXISTS `quest_requirements` (
   `npc_id` INTEGER,
   `npc_action` INTEGER,
   `item_id` INTEGER,
-  `item_quantity` INTEGER,
+  `item_quantity` INTEGER
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
 
 -- Quest Action Table
 
 CREATE TABLE IF NOT EXISTS `quest_actions`(
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `description` VARCHAR(150) NOT NULL
+  `description` VARCHAR(150) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 INSERT INTO `quest_actions` (description) VALUES ('Kill');
