@@ -424,6 +424,7 @@ CREATE TABLE IF NOT EXISTS `quests` (
   `monteary_reward` INTEGER,
   `item_reward` INTEGER,
   `experience` INTEGER,
+  `deleted` INTEGER DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
