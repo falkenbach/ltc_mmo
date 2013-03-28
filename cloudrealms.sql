@@ -421,7 +421,7 @@ CREATE TABLE IF NOT EXISTS `quests` (
   `verbiage` text NOT NULL,
   `giver` INTEGER NOT NULL,
   `turnin` INTEGER NOT NULL,
-  `monteary_reward` INTEGER,
+  `monetary_reward` INTEGER,
   `item_reward` INTEGER,
   `experience` INTEGER,
   `deleted` INTEGER DEFAULT 0,

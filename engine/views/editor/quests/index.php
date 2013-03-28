@@ -30,8 +30,8 @@
 				<td><?=$quest->item_reward?></td>
 				<td><?=$quest->experience?></td>
 				<td>
-					<a href="<?=base_url('editor/quests/edit/'.$character->id)?>"><i class="icon-pencil"></i></a>
-                                        <a href="<?=base_url('editor/quests/delete/'.$character->id)?>"><i class="icon-trash"></i></a>
+					<a href="<?=base_url('editor/quests/edit/'.$quest->id)?>"><i class="icon-pencil"></i></a>
+                                        <a href="<?=base_url('editor/quests/delete/'.$quest->id)?>"><i class="icon-trash"></i></a>
 				</td>
 			</tr>
 		<?php endforeach; ?>

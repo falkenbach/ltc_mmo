@@ -5,7 +5,7 @@
         </div>
 	<?=form_open(current_url(), 'class="form-horizontal"')?>
                 <?=bootstrap_input('name', 'Name')?>
-                <?=form_textarea('verbiage', 'Quest Text')?>
+                <?=bootstrap_input('verbiage', 'Quest Text')?>
                 <?=bootstrap_input('giver', 'Quest Giver')?>
                 <?=bootstrap_input('turnin', 'Quest Turnin')?>
                 <?=bootstrap_input('monetary_reward', 'Monetary Reward')?>

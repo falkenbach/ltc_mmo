@@ -31,5 +31,15 @@ class Quests extends MY_Controller {
                         redirect('/editor/quests');
                 }
 		$this->data['meta_title'] = 'Create Quest';
-	}	
+	}
+
+	public function edit()
+	{
+
+	}
+
+	public function delete()
+	{
+
+	}
 }
