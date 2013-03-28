@@ -62,6 +62,7 @@
 								<li><a style="cursor:pointer;" onclick="open_objects();">Objects</a></li>
 								<li><a style="cursor:pointer;" onclick="open_monsters();">Monsters</a></li>
 								<li><a style="cursor:pointer;" onclick="open_characters();">Characters</a></li>
+								<li><a style="cursor:pointer;" onclick="open_characters();">NPCs</a></li>
 								<li class="divider"></li>
 								<li><a style="cursor:pointer;" href="#" id="initialize_map" class="drop_down_item">Initialize Map</a></li>
 								<li><a style="cursor:pointer;" href="<?=base_url('editor/map/delete/'.$this->uri->segment(4))?>">Delete Location</a></li>
@@ -77,6 +78,7 @@
 						<li <?php if($page=='creatures'){ ?> class="active" <? } ?> id="creatures"><a href="<?=base_url('editor/creatures')?>">Creatures</a></li>
 						<li <?php if($page=='books'){ ?> class="active" <? } ?> id="books"><a href="<?=base_url('editor/books')?>">Books</a></li>
 						<li <?php if($page=='quests'){ ?> class="active" <? } ?> id="quests"><a href="<?=base_url('editor/quests')?>">Quests</a></li>
+						<li <?php if($page=='npcs'){ ?> class="active" <? } ?> id="npcs"><a href="<?=base_url('editor/npcs')?>">NPCs</a></li>
 						<li <?php if($page=='characters'){ ?> class="active" <? } ?> id="characters"><a href="<?=base_url('editor/characters')?>">Characters</a></li>
 						<li <?php if($page=='resources'){ ?> class="active" <? } ?> id="resources"><a href="<?=base_url('editor/resources')?>">Resources</a></li>
 						<li class="divider-vertical"></li>

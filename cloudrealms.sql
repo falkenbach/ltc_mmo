@@ -454,6 +454,14 @@ INSERT INTO `quest_actions` (description) VALUES ('Find');
 INSERT INTO `quest_actions` (description) VALUES ('Save');
 INSERT INTO `quest_actions` (description) VALUES ('Talk To');
 
+CREATE TABLE IF NOT EXISTS `npcs` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `verbiage` text NOT NULL,
+  `location` text NOT NULL,
+  `deleted` INTEGER DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
