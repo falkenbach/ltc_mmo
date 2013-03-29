@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Quests extends MY_Controller {
+class Npcs extends MY_Controller {
 
 	public function __construct()
 	{
@@ -20,7 +20,7 @@ class Quests extends MY_Controller {
 		$this->form_validation->set_rules('verbiage','Text','required|trim|xss_clean');
 		$this->form_validation->set_rules('location','Location','required|trim|xss_clean');
 
-		if ($this->form_validation->run() == TRUE && $this->quests->insert($_POST))
+		if ($this->form_validation->run() == TRUE && $this->npcs->insert($_POST))
                 {
                         // Creating the npcs was successful, redirect them back to the admin page
                         flashmsg('NPC created successfully.', 'success');

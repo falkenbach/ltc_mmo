@@ -1,7 +1,7 @@
 <style>body, html { overflow:hidden; }</style>
 <div class="pane">
         <div class="page-header">
-                <a href="<?=base_url('editor/npc/create')?>" class="btn pull-right">Create NPC</a>
+                <a href="<?=base_url('editor/npcs/create')?>" class="btn pull-right">Create NPC</a>
                 <h1>All NPCs</h1>
         </div>
         <table class="table">
@@ -18,10 +18,10 @@
                         foreach ($npcs as $npc):
 		?>
 			<tr>
-				<td><?=$quest->id?></td>
-				<td><?=$quest->name?></td>
-				<td><?=$quest->text?></td>
-				<td><?=$quest->location?></td>
+				<td><?=$npc->id?></td>
+				<td><?=$npc->name?></td>
+				<td><?=$npc->verbiage?></td>
+				<td><?=$npc->location?></td>
 				<td>
 					<a href="<?=base_url('editor/npcs/edit/'.$npc->id)?>"><i class="icon-pencil"></i></a>
                                         <a href="<?=base_url('editor/npcs/delete/'.$npc->id)?>"><i class="icon-trash"></i></a>
