@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
 --
 
 INSERT INTO `groups` (`id`, `name`, `description`, `permissions`, `deleted`) VALUES
-(1, 'admin', 'Administrator', '{"auth":"1","uploader":"1","ajax":"1","characters":"1","dashboard":"1","groups":"1","map":"1","options":"1","permissions":"1","players":"1","resources":"1","ui":"1","world_map":"1"}', 0),
+(1, 'admin', 'Administrator', '{"auth":"1","uploader":"1","abilities":"1","ajax":"1","characters":"1","creatures":"1","dashboard":"1","groups":"1","map":"1","npcs":"1","options":"1","permissions":"1","players":"1","quests":"1","resources":"1","ui":"1","world_map":"1"}', 0),
 (2, 'members', 'General User', '{"auth":"1"}', 0),
 (3, 'guest', 'Guest User', '{"auth":"1"}', 0),
 (4, 'Masters', 'MP', NULL, 1);
