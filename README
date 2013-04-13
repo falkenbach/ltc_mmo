@@ -1,4 +1,5 @@
-This project aims to create an mmorpg engine that uses litecoins as its in game currency.  This engine was cloned from cloudrealms mmo engine.  More to come shortly.
+This project aims to create an mmorpg engine that uses litecoins as its in game currency.  This engine was cloned from cloudrealms mmo engine.  Please visit our forums at ltcmmo.org/forum.
+If you would like to donate to this project please send litecoins to LbF1wh7QcBS8cJuda73aZiGWMAsYoG34S7.
 
 --INSTALL--
 To install this engine please use the installer (install.pl) in the installer directory.
