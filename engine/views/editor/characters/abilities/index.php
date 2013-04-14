@@ -17,6 +17,8 @@
 				<th>Zodiac</th>
 				<th>Attributes</th>
 				<th>Level</th>
+				<th>Damage</th>
+				<th>Heal</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -35,6 +37,8 @@
 				<td><?php if(!empty($zodiac->name)){ echo $zodiac->name; } else { echo 'Any'; } ?></td>
 				<td><?=$ability->attributes?></td>
 				<td><?=$ability->level?></td>
+				<td><?=$ability->damage?></td>
+				<td><?=$ability->heal?></td>
 				<td>
 					<a href="<?=base_url('editor/characters/abilities/edit/'.$ability->id)?>"><i class="icon-pencil"></i></a>
 					<a href="<?=base_url('editor/characters/abilities/delete/'.$ability->id)?>"><i class="icon-trash"></i></a>

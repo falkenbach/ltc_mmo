@@ -5,90 +5,21 @@ class Items extends MY_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('items_model', 'items');
-
+		$this->load->model('consumables_model', 'items');
+		$this->load->model('class_model', 'classes');
+		$this->load->model('attribute_model', 'attributes');
+		$this->load->model('weapons_model', 'weapons');
+		$this->load->model('armor_model', 'armor');
+		$this->load->model('relics_model', 'relics');
+		$this->load->model('rings_model', 'rings');
+		$this->load->model('shields_model', 'shields');
+		$this->load->model('amulets_model', 'amulets');
 	}
 	
 	public function index()
 	{
 		$this->data['items'] = $this->items->get_all();
 		$this->data['meta_title'] = 'All Items';
-	}
-	
-	public function create()
-	{
-		$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
-		$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
-		$this->form_validation->set_rules('damage', 'Damage', 'trim|xss_clean|integer');
-		$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
-		$this->form_validation->set_rules('modified_amount', 'Modified Amount', 'trim|xss_clean|integer');
-		$this->form_validation->set_rules('attributes', 'Attributes', 'trim|xss_clean|integer');
-		$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
-		$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
-		$this->form_validation->set_rules('stackable', 'Stackable', 'required|trim');
-		$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
-		
-		if ($this->form_validation->run() == TRUE && $this->items->insert($_POST))
-		{
-			// Creating the characters was successful, redirect them back to the admin page
-			flashmsg('Item created successfully.', 'success');
-			redirect('/editor/items');
-		}
-		
-		// Display the create user form
-		$all_classes = $this->classes->get_all();
-		$classes = array('' => 'Select one');
-		foreach ($all_classes as $class)
-		{
-			$classes[$class->id] = $class->name;
-		}
-		$this->data['classes'] = $classes;
-		$this->data['meta_title'] = 'Create Character';
-	}
-	
-	public function edit($id = NULL)
-	{
-		$item = $this->data['item'] = $this->items->get($id);
-		if (empty($id) || empty($item))
-		{
-			flashmsg('You must specify a item to edit.', 'error');
-			redirect('/editor/items');
-		}
-		
-		$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
-		$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
-		$this->form_validation->set_rules('damage', 'Damage', 'trim|xss_clean|integer');
-		$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
-		$this->form_validation->set_rules('modified_amount', 'Modified Amount', 'trim|xss_clean|integer');
-		$this->form_validation->set_rules('attributes', 'Attributes', 'trim|xss_clean|integer');
-		$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
-		$this->form_validation->set_rules('stackable', 'Stackable', 'required|trim');
-		$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
-		
-		if ($this->form_validation->run() === TRUE)
-		{
-			$data = $this->input->post();
-			
-			if ($this->items->update($id, $data) === TRUE)
-			{
-				flashmsg('Item updated successfully.', 'success');
-				redirect('/editor/items');
-			}
-			else
-			{
-				flashmsg('There was an error while trying to edit the item.', 'error');
-			}
-		}
-		
-		// Display the create user form
-		$all_classes = $this->classes->get_all();
-		$classes = array('' => 'Select one');
-		foreach ($all_classes as $class)
-		{
-			$classes[$class->id] = $class->name;
-		}
-		$this->data['classes'] = $classes;
-		$this->data['meta_title'] = 'Edit Character';
 	}
 
 	public function delete($id = NULL)
@@ -226,54 +157,96 @@ class Items extends MY_Controller {
 	
 	public function weapons($action = NULL, $id = NULL)
 	{
-	
-		$this->view = 'editor/characters/classes/index';
+		$this->view = 'editor/items/weapons/index';
+		
 		if($action!=NULL) {
-			$this->view = 'editor/characters/classes/'.$action;
+			$this->view = 'editor/items/weapons/'.$action;
 		}
 		
 		if($action=='create') {
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('damage', 'Damage', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('stackable', 'Stackable', 'required|trim');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
 			
-			if ($this->form_validation->run() == TRUE && $this->classes->insert(array(
+			if ($this->form_validation->run() == TRUE && $this->items->insert(array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'attributes' => $this->_parse_attributes($_POST))))
+																					'damage' => $this->input->post('damage'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'stackable' => $this->input->post('stackable'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
 				// Creating the attr was successful, redirect them back to the admin page
-				flashmsg('Class created successfully.', 'success');
-				redirect('/editor/characters/classes');
+				flashmsg('Weapon created successfully.', 'success');
+				redirect('/editor/items/weapons');
 			}
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
+			{
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
 			
 		} else if($action=='edit') {
-			$class = $this->data['class'] = $this->classes->get($id);
-			if (empty($id) || empty($class))
+			$weapon = $this->data['weapons'] = $this->weapons->get($id);
+			if (empty($id) || empty($weapon))
 			{
-				flashmsg('You must specify a class to edit.', 'error');
-				redirect('/editor/characters/classes');
+				flashmsg('You must specify a weapon to edit.', 'error');
+				redirect('/editor/items/weapons');
 			}
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('damage', 'Damage', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('stackable', 'Stackable', 'required|trim');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
 			
 			if ($this->form_validation->run() == TRUE && $this->classes->update($id, array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'attributes' => $this->_parse_attributes($_POST))))
+																					'damage' => $this->input->post('damage'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'stackable' => $this->input->post('stackable'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
 				// Editing the class was successful, redirect them back to the admin page
-				flashmsg('Class has been updated successfully.', 'success');
-				redirect('/editor/characters/classes');
-			}	
-		} else if($action=='delete') {
-			$class = $this->data['class'] = $this->classes->get($id);
-			if (empty($id) || empty($class))
+				flashmsg('Weapon has been updated successfully.', 'success');
+				redirect('/editor/items/weapons');
+			}
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
 			{
-				flashmsg('You must specify a class to delete.', 'error');
-				redirect('/editor/characters/classes');
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
+		} else if($action=='delete') {
+			$weapon = $this->data['weapon'] = $this->weapons->get($id);
+			if (empty($id) || empty($weapon))
+			{
+				flashmsg('You must specify a weapon to delete.', 'error');
+				redirect('/editor/items/weapons');
 			}
 			$this->form_validation->set_rules('confirm', 'confirmation', 'required');
-			$this->form_validation->set_rules('id', 'class ID', 'required|is_natural');
+			$this->form_validation->set_rules('id', 'weapon ID', 'required|is_natural');
 			if ($this->form_validation->run() === TRUE)
 			{
 				// Do we really want to delete?
@@ -288,76 +261,114 @@ class Items extends MY_Controller {
 					// Do we have the right userlevel?
 					if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
 					{
-						$this->classes->delete($id);
+						$this->weapons->delete($id);
 					}
 					
 					// Redirect them back to the admin page
-					flashmsg('Class deleted successfully.', 'success');
-					redirect('/editor/characters/classes');
+					flashmsg('Weapon deleted successfully.', 'success');
+					redirect('/editor/items/weapons');
 				}
 				else
 				{
-					redirect('/editor/characters/classes');
+					redirect('/editor/items/weapons');
 				}
 			}
 			$this->data['csrf'] = $this->_get_csrf_nonce();
 			
 		}
-		$this->data['attributes'] = $this->attributes->get_all();
-		$this->data['classes'] = $this->classes->get_all();
-		$this->data['meta_title'] = 'Character Classes';
+
+		$this->data['weapons'] = $this->weapons->get_all();
+		$this->data['meta_title'] = 'Weapons';
 	}
 	
 	public function armor($action = NULL, $id = NULL)
 	{
-	
-		$this->view = 'editor/characters/races/index';
+		$this->view = 'editor/items/armor/index';
+		
 		if($action!=NULL) {
-			$this->view = 'editor/characters/races/'.$action;
+			$this->view = 'editor/items/armor/'.$action;
 		}
 		
 		if($action=='create') {
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
 			
-			if ($this->form_validation->run() == TRUE && $this->races->insert(array(
+			if ($this->form_validation->run() == TRUE && $this->items->insert(array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'attributes' => $this->_parse_attributes($_POST))))
+																					'defense' => $this->input->post('defense'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
 				// Creating the attr was successful, redirect them back to the admin page
-				flashmsg('Race created successfully.', 'success');
-				redirect('/editor/characters/races');
+				flashmsg('Armor created successfully.', 'success');
+				redirect('/editor/items/armor');
 			}
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
+			{
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
 			
 		} else if($action=='edit') {
-			$race = $this->data['race'] = $this->races->get($id);
-			if (empty($id) || empty($race))
+			$armor = $this->data['armor'] = $this->armor->get($id);
+			if (empty($id) || empty($armor))
 			{
-				flashmsg('You must specify a race to edit.', 'error');
-				redirect('/editor/characters/races');
+				flashmsg('You must specify a armor to edit.', 'error');
+				redirect('/editor/items/armor');
 			}
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
 			
-			if ($this->form_validation->run() == TRUE && $this->races->update($id, array(
+			if ($this->form_validation->run() == TRUE && $this->classes->update($id, array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'attributes' => $this->_parse_attributes($_POST))))
+																					'defense' => $this->input->post('defense'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
-				// Editing the race was successful, redirect them back to the admin page
-				flashmsg('Race has been updated successfully.', 'success');
-				redirect('/editor/characters/races');
-			}	
+				// Editing the class was successful, redirect them back to the admin page
+				flashmsg('Armor has been updated successfully.', 'success');
+				redirect('/editor/items/armor');
+			}
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
+			{
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
 		} else if($action=='delete') {
-			$race = $this->data['race'] = $this->races->get($id);
-			if (empty($id) || empty($race))
+			$armor = $this->data['armor'] = $this->armor->get($id);
+			if (empty($id) || empty($armor))
 			{
-				flashmsg('You must specify a race to delete.', 'error');
-				redirect('/editor/characters/races');
+				flashmsg('You must specify a armor to delete.', 'error');
+				redirect('/editor/items/armor');
 			}
 			$this->form_validation->set_rules('confirm', 'confirmation', 'required');
-			$this->form_validation->set_rules('id', 'race ID', 'required|is_natural');
+			$this->form_validation->set_rules('id', 'armor ID', 'required|is_natural');
 			if ($this->form_validation->run() === TRUE)
 			{
 				// Do we really want to delete?
@@ -372,76 +383,114 @@ class Items extends MY_Controller {
 					// Do we have the right userlevel?
 					if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
 					{
-						$this->races->delete($id);
+						$this->armor->delete($id);
 					}
 					
 					// Redirect them back to the admin page
-					flashmsg('Race deleted successfully.', 'success');
-					redirect('/editor/characters/races');
+					flashmsg('Weapon deleted successfully.', 'success');
+					redirect('/editor/items/armor');
 				}
 				else
 				{
-					redirect('/editor/characters/races');
+					redirect('/editor/items/armor');
 				}
 			}
 			$this->data['csrf'] = $this->_get_csrf_nonce();
 			
 		}
-		$this->data['attributes'] = $this->attributes->get_all();
-		$this->data['races'] = $this->races->get_all();
-		$this->data['meta_title'] = 'Character Races';
+
+		$this->data['armor'] = $this->armor->get_all();
+		$this->data['meta_title'] = 'Armor';
 	}
 	
 	public function shields($action = NULL, $id = NULL)
 	{
-		$this->view = 'editor/characters/zodiacs/index';
+		$this->view = 'editor/items/shields/index';
+		
 		if($action!=NULL) {
-			$this->view = 'editor/characters/zodiacs/'.$action;
+			$this->view = 'editor/items/shields/'.$action;
 		}
 		
 		if($action=='create') {
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
 			
-			if ($this->form_validation->run() == TRUE && $this->zodiacs->insert(array(
+			if ($this->form_validation->run() == TRUE && $this->items->insert(array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'attributes' => $this->_parse_attributes($_POST))))
+																					'defense' => $this->input->post('defense'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
 				// Creating the attr was successful, redirect them back to the admin page
-				flashmsg('Zodiac created successfully.', 'success');
-				redirect('/editor/characters/zodiacs');
+				flashmsg('Shield created successfully.', 'success');
+				redirect('/editor/items/shields');
 			}
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
+			{
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
 			
 		} else if($action=='edit') {
-			$zodiac = $this->data['zodiac'] = $this->zodiacs->get($id);
-			if (empty($id) || empty($zodiac))
+			$shields = $this->data['shields'] = $this->shields->get($id);
+			if (empty($id) || empty($shields))
 			{
-				flashmsg('You must specify a zodiac to edit.', 'error');
-				redirect('/editor/characters/zodiacs');
+				flashmsg('You must specify a shield to edit.', 'error');
+				redirect('/editor/items/shields');
 			}
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
 			
-			if ($this->form_validation->run() == TRUE && $this->zodiacs->update($id, array(
+			if ($this->form_validation->run() == TRUE && $this->classes->update($id, array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'attributes' => $this->_parse_attributes($_POST))))
+																					'defense' => $this->input->post('defense'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
-				// Editing the zodiac was successful, redirect them back to the admin page
-				flashmsg('Zodiac has been updated successfully.', 'success');
-				redirect('/editor/characters/zodiacs');
+				// Editing the class was successful, redirect them back to the admin page
+				flashmsg('Shield has been updated successfully.', 'success');
+				redirect('/editor/items/shields');
 			}
-			
-		} else if($action=='delete') {
-			$zodiac = $this->data['zodiac'] = $this->zodiacs->get($id);
-			if (empty($id) || empty($zodiac))
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
 			{
-				flashmsg('You must specify a zodiac to delete.', 'error');
-				redirect('/editor/characters/zodiacs');
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
+		} else if($action=='delete') {
+			$shields = $this->data['shields'] = $this->shields->get($id);
+			if (empty($id) || empty($shields))
+			{
+				flashmsg('You must specify a shield to delete.', 'error');
+				redirect('/editor/items/shields');
 			}
 			$this->form_validation->set_rules('confirm', 'confirmation', 'required');
-			$this->form_validation->set_rules('id', 'zodiac ID', 'required|is_natural');
+			$this->form_validation->set_rules('id', 'shields ID', 'required|is_natural');
 			if ($this->form_validation->run() === TRUE)
 			{
 				// Do we really want to delete?
@@ -456,77 +505,114 @@ class Items extends MY_Controller {
 					// Do we have the right userlevel?
 					if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
 					{
-						$this->zodiacs->delete($id);
+						$this->shields->delete($id);
 					}
 					
 					// Redirect them back to the admin page
-					flashmsg('Zodiac deleted successfully.', 'success');
-					redirect('/editor/characters/zodiacs');
+					flashmsg('Shield deleted successfully.', 'success');
+					redirect('/editor/items/shields');
 				}
 				else
 				{
-					redirect('/editor/characters/zodiacs');
+					redirect('/editor/items/shields');
 				}
 			}
 			$this->data['csrf'] = $this->_get_csrf_nonce();
+			
 		}
-		$this->data['attributes'] = $this->attributes->get_all();
-		$this->data['zodiacs'] = $this->zodiacs->get_all();
-		$this->data['meta_title'] = 'Character Zodiacs';
+
+		$this->data['shields'] = $this->shields->get_all();
+		$this->data['meta_title'] = 'Shields';
 	}
 	
 	public function amulets($action = NULL, $id = NULL)
 	{
-		$this->view = 'editor/characters/attributes/index';
+		$this->view = 'editor/items/amulets/index';
+		
 		if($action!=NULL) {
-			$this->view = 'editor/characters/attributes/'.$action;
+			$this->view = 'editor/items/amulets/'.$action;
 		}
 		
 		if($action=='create') {
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('acronym', 'Acronym', 'required|trim|xss_clean|min_length[2]|max_length[4]');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
-			/* Make sure the acronym is all caps */
-			if(isset($_POST['acronym'])){
-				$_POST['acronym'] = strtoupper($_POST['acronym']);
-			}
-			if ($this->form_validation->run() == TRUE && $this->attributes->insert($_POST))
+			
+			if ($this->form_validation->run() == TRUE && $this->items->insert(array(
+																					'name' => $this->input->post('name'),
+																					'description' => $this->input->post('description'),
+																					'defense' => $this->input->post('defense'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
 				// Creating the attr was successful, redirect them back to the admin page
-				flashmsg('Attribute created successfully.', 'success');
-				redirect('/editor/characters/attributes');
+				flashmsg('Amulet created successfully.', 'success');
+				redirect('/editor/items/amulets');
 			}
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
+			{
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
 			
 		} else if($action=='edit') {
-			$attr = $this->data['attr'] = $this->attributes->get($id);
-			if (empty($id) || empty($attr))
+			$amulets = $this->data['amulets'] = $this->amulets->get($id);
+			if (empty($id) || empty($amulets))
 			{
-				flashmsg('You must specify a attribute to edit.', 'error');
-				redirect('/editor/characters/attributes');
+				flashmsg('You must specify a amulet to edit.', 'error');
+				redirect('/editor/items/amulets');
 			}
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('acronym', 'Acronym', 'required|trim|xss_clean|min_length[2]|max_length[4]');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
-			/* Make sure the acronym is all caps */
-			if(isset($_POST['acronym'])){
-				$_POST['acronym'] = strtoupper($_POST['acronym']);
-			}
-			if ($this->form_validation->run() == TRUE && $this->attributes->update($id, $_POST))
-			{
-				// Creating the attr was successful, redirect them back to the admin page
-				flashmsg('Attribute has been updated successfully.', 'success');
-				redirect('/editor/characters/attributes');
-			}
 			
-		} else if($action=='delete') {
-			$attr = $this->data['attr'] = $this->attributes->get($id);
-			if (empty($id) || empty($attr))
+			if ($this->form_validation->run() == TRUE && $this->classes->update($id, array(
+																					'name' => $this->input->post('name'),
+																					'description' => $this->input->post('description'),
+																					'defense' => $this->input->post('defense'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
-				flashmsg('You must specify a attribute to delete.', 'error');
-				redirect('/editor/characters/attributes');
+				// Editing the class was successful, redirect them back to the admin page
+				flashmsg('Amulet has been updated successfully.', 'success');
+				redirect('/editor/items/amulets');
+			}
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
+			{
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
+		} else if($action=='delete') {
+			$amulets = $this->data['amulets'] = $this->amulets->get($id);
+			if (empty($id) || empty($amulets))
+			{
+				flashmsg('You must specify a amulet to delete.', 'error');
+				redirect('/editor/items/amulets');
 			}
 			$this->form_validation->set_rules('confirm', 'confirmation', 'required');
-			$this->form_validation->set_rules('id', 'attribute ID', 'required|is_natural');
+			$this->form_validation->set_rules('id', 'amulets ID', 'required|is_natural');
 			if ($this->form_validation->run() === TRUE)
 			{
 				// Do we really want to delete?
@@ -541,22 +627,24 @@ class Items extends MY_Controller {
 					// Do we have the right userlevel?
 					if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
 					{
-						$this->attributes->delete($id);
+						$this->amulets->delete($id);
 					}
 					
 					// Redirect them back to the admin page
-					flashmsg('Attribute deleted successfully.', 'success');
-					redirect('/editor/characters/attributes');
+					flashmsg('Amulet deleted successfully.', 'success');
+					redirect('/editor/items/amulets');
 				}
 				else
 				{
-					redirect('/editor/characters/attributes');
+					redirect('/editor/items/amulets');
 				}
 			}
 			$this->data['csrf'] = $this->_get_csrf_nonce();
+			
 		}
-		$this->data['attributes'] = $this->attributes->get_all();
-		$this->data['meta_title'] = 'Character Attributes';
+
+		$this->data['amulets'] = $this->amulets->get_all();
+		$this->data['meta_title'] = 'Amulets';
 	}
 	
 	private function _parse_attributes($arr, $attributes = array())
@@ -571,70 +659,96 @@ class Items extends MY_Controller {
 	
 	public function relics($action = NULL, $id = NULL)
 	{
-		$this->view = 'editor/characters/skills/index';
+		$this->view = 'editor/items/relics/index';
+		
 		if($action!=NULL) {
-			$this->view = 'editor/characters/skills/'.$action;
+			$this->view = 'editor/items/relics/'.$action;
 		}
 		
 		if($action=='create') {
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('damage', 'Damage', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('class', 'Class', 'required|trim|xss_clean');
 			
-			if ($this->form_validation->run() == TRUE && $this->skills->insert(array(
+			if ($this->form_validation->run() == TRUE && $this->items->insert(array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'class' => $this->input->post('class'))))
+																					'defense' => $this->input->post('defense'),
+																					'damage' => $this->input->post('damage'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
-				// Creating the skill was successful, redirect them back to the admin page
-				flashmsg('Skill created successfully.', 'success');
-				redirect('/editor/characters/skills');
+				// Creating the attr was successful, redirect them back to the admin page
+				flashmsg('Relic created successfully.', 'success');
+				redirect('/editor/items/relics');
 			}
-			
 			$all_classes = $this->classes->get_all();
-			$classes = array('' => 'Select One');
-			foreach($all_classes as $class) {
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
+			{
 				$classes[$class->id] = $class->name;
 			}
 			$this->data['classes'] = $classes;
 			
 		} else if($action=='edit') {
-			$skill = $this->data['skill'] = $this->skills->get($id);
-			if (empty($id) || empty($skill))
+			$relics = $this->data['relics'] = $this->relics->get($id);
+			if (empty($id) || empty($relics))
 			{
-				flashmsg('You must specify a skill to edit.', 'error');
-				redirect('/editor/characters/skills');
+				flashmsg('You must specify a amulet to edit.', 'error');
+				redirect('/editor/items/relics');
 			}
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('damage', 'Damage', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('class', 'Class', 'required|trim|xss_clean');
 			
-			if ($this->form_validation->run() == TRUE && $this->skills->update($id, array(
+			if ($this->form_validation->run() == TRUE && $this->classes->update($id, array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'class' => $this->input->post('class'))))
+																					'defense' => $this->input->post('defense'),
+																					'damage' => $this->input->post('damage'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
-				// Editing the skill was successful, redirect them back to the admin page
-				flashmsg('Skill has been updated successfully.', 'success');
-				redirect('/editor/characters/skills');
+				// Editing the class was successful, redirect them back to the admin page
+				flashmsg('Relic has been updated successfully.', 'success');
+				redirect('/editor/items/relics');
 			}
-			
 			$all_classes = $this->classes->get_all();
-			$classes = array('' => 'Select One');
-			foreach($all_classes as $class) {
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
+			{
 				$classes[$class->id] = $class->name;
 			}
 			$this->data['classes'] = $classes;
-			
 		} else if($action=='delete') {
-			$skill = $this->data['skill'] = $this->skills->get($id);
-			if (empty($id) || empty($skill))
+			$relics = $this->data['relics'] = $this->relics->get($id);
+			if (empty($id) || empty($relics))
 			{
-				flashmsg('You must specify a skill to delete.', 'error');
-				redirect('/editor/characters/skills');
+				flashmsg('You must specify a relic to delete.', 'error');
+				redirect('/editor/items/relics');
 			}
 			$this->form_validation->set_rules('confirm', 'confirmation', 'required');
-			$this->form_validation->set_rules('id', 'skill ID', 'required|is_natural');
+			$this->form_validation->set_rules('id', 'relics ID', 'required|is_natural');
 			if ($this->form_validation->run() === TRUE)
 			{
 				// Do we really want to delete?
@@ -649,91 +763,114 @@ class Items extends MY_Controller {
 					// Do we have the right userlevel?
 					if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
 					{
-						$this->skills->delete($id);
+						$this->relics->delete($id);
 					}
 					
 					// Redirect them back to the admin page
-					flashmsg('Skill deleted successfully.', 'success');
-					redirect('/editor/characters/skills');
+					flashmsg('Amulet deleted successfully.', 'success');
+					redirect('/editor/items/relics');
 				}
 				else
 				{
-					redirect('/editor/characters/skills');
+					redirect('/editor/items/relics');
 				}
 			}
 			$this->data['csrf'] = $this->_get_csrf_nonce();
+			
 		}
-		
-		$this->data['skills'] = $this->skills->get_all();
-		$this->data['meta_title'] = 'Character Skills';
+
+		$this->data['relics'] = $this->relics->get_all();
+		$this->data['meta_title'] = 'Relics';
 	}
 	
 	public function consumables($action = NULL, $id = NULL)
 	{
-		$this->view = 'editor/characters/abilities/index';
+		$this->view = 'editor/items/consumables/index';
+		
 		if($action!=NULL) {
-			$this->view = 'editor/characters/abilities/'.$action;
+			$this->view = 'editor/items/consumables/'.$action;
 		}
 		
 		if($action=='create') {
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('modified_amount', 'Modified Amount', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('stackable', 'Stackable', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('class', 'Class', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('zodiac', 'Zodiac', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('race', 'Race', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean');
 			
-			if ($this->form_validation->run() == TRUE && $this->abilities->insert(array(
+			if ($this->form_validation->run() == TRUE && $this->items->insert(array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'class' => $this->input->post('class'),
-																					'zodiac' => $this->input->post('zodiac'),
-																					'race' => $this->input->post('race'),
-																					'level' => $this->input->post('level'),
-																					'attributes' => $this->_parse_attributes($_POST))))
+																					'modified_amount' => $this->input->post('modified_amount'),
+																					'stackable' => $this->input->post('stackable'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
-				// Creating the ability was successful, redirect them back to the admin page
-				flashmsg('Ability created successfully.', 'success');
-				redirect('/editor/characters/abilities');
+				// Creating the attr was successful, redirect them back to the admin page
+				flashmsg('Consumable created successfully.', 'success');
+				redirect('/editor/items/consumables');
 			}
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
+			{
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
 			
 		} else if($action=='edit') {
-			$ability = $this->data['ability'] = $this->abilities->get($id);
-			if (empty($id) || empty($ability))
+			$consumables = $this->data['consumables'] = $this->consumables->get($id);
+			if (empty($id) || empty($consumables))
 			{
-				flashmsg('You must specify a ability to edit.', 'error');
-				redirect('/editor/characters/abilities');
+				flashmsg('You must specify a amulet to edit.', 'error');
+				redirect('/editor/items/consumables');
 			}
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('modified_amount', 'Modified Amount', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('stackable', 'Stackable', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('class', 'Class', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('zodiac', 'Zodiac', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('race', 'Race', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean');
 			
-			if ($this->form_validation->run() == TRUE && $this->abilities->update($id, array(
+			if ($this->form_validation->run() == TRUE && $this->classes->update($id, array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'class' => $this->input->post('class'),
-																					'zodiac' => $this->input->post('zodiac'),
-																					'race' => $this->input->post('race'),
-																					'level' => $this->input->post('level'),
-																					'attributes' => $this->_parse_attributes($_POST))))
+																					'modified_amount' => $this->input->post('modified_amount'),
+																					'stackable' => $this->input->post('stackable'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
-				// Editing the ability was successful, redirect them back to the admin page
-				flashmsg('Ability has been updated successfully.', 'success');
-				redirect('/editor/characters/abilities');
+				// Editing the class was successful, redirect them back to the admin page
+				flashmsg('Consumable has been updated successfully.', 'success');
+				redirect('/editor/items/consumables');
 			}
-			
-		} else if($action=='delete') {
-			$ability = $this->data['ability'] = $this->abilities->get($id);
-			if (empty($id) || empty($ability))
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
 			{
-				flashmsg('You must specify a ability to delete.', 'error');
-				redirect('/editor/characters/abilities');
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
+		} else if($action=='delete') {
+			$consumables = $this->data['consumables'] = $this->consumables->get($id);
+			if (empty($id) || empty($consumables))
+			{
+				flashmsg('You must specify a relic to delete.', 'error');
+				redirect('/editor/items/consumables');
 			}
 			$this->form_validation->set_rules('confirm', 'confirmation', 'required');
-			$this->form_validation->set_rules('id', 'ability ID', 'required|is_natural');
+			$this->form_validation->set_rules('id', 'consumables ID', 'required|is_natural');
 			if ($this->form_validation->run() === TRUE)
 			{
 				// Do we really want to delete?
@@ -748,112 +885,114 @@ class Items extends MY_Controller {
 					// Do we have the right userlevel?
 					if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
 					{
-						$this->abilities->delete($id);
+						$this->consumables->delete($id);
 					}
 					
 					// Redirect them back to the admin page
-					flashmsg('Ability deleted successfully.', 'success');
-					redirect('/editor/characters/abilities');
+					flashmsg('Amulet deleted successfully.', 'success');
+					redirect('/editor/items/consumables');
 				}
 				else
 				{
-					redirect('/editor/characters/abilities');
+					redirect('/editor/items/consumables');
 				}
 			}
 			$this->data['csrf'] = $this->_get_csrf_nonce();
+			
 		}
-		
-		$all_classes = $this->classes->get_all();
-		$classes = array('*' => 'Any');
-		foreach($all_classes as $class) {
-			$classes[$class->id] = $class->name;
-		}
-		$this->data['classes'] = $classes;
-		
-		$all_zodiacs = $this->zodiacs->get_all();
-		$zodiacs = array('*' => 'Any');
-		foreach($all_zodiacs as $zodiac) {
-			$zodiacs[$zodiac->id] = $zodiac->name;
-		}
-		$this->data['zodiacs'] = $zodiacs;
-		
-		$all_races = $this->races->get_all();
-		$races = array('*' => 'Any');
-		foreach($all_races as $race) {
-			$races[$race->id] = $race->name;
-		}
-		$this->data['races'] = $races;
-		$this->data['attributes'] = $this->attributes->get_all();
-		$this->data['abilities'] = $this->abilities->get_all();
-		$this->data['meta_title'] = 'Character Abilities';
+
+		$this->data['consumables'] = $this->consumables->get_all();
+		$this->data['meta_title'] = 'Consumables';
 	}
 	
 	public function rings($action = NULL, $id = NULL)
 	{
-		$this->view = 'editor/characters/powers/index';
+		$this->view = 'editor/items/rings/index';
+		
 		if($action!=NULL) {
-			$this->view = 'editor/characters/powers/'.$action;
+			$this->view = 'editor/items/rings/'.$action;
 		}
 		
 		if($action=='create') {
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('class', 'Class', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('zodiac', 'Zodiac', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('race', 'Race', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean');
 			
-			if ($this->form_validation->run() == TRUE && $this->powers->insert(array(
+			if ($this->form_validation->run() == TRUE && $this->items->insert(array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'class' => $this->input->post('class'),
-																					'zodiac' => $this->input->post('zodiac'),
-																					'race' => $this->input->post('race'),
-																					'level' => $this->input->post('level'),
-																					'attributes' => $this->_parse_attributes($_POST))))
+																					'defense' => $this->input->post('defense'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
-				// Creating the power was successful, redirect them back to the admin page
-				flashmsg('Ability created successfully.', 'success');
-				redirect('/editor/characters/powers');
+				// Creating the attr was successful, redirect them back to the admin page
+				flashmsg('Ring created successfully.', 'success');
+				redirect('/editor/items/rings');
 			}
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
+			{
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
 			
 		} else if($action=='edit') {
-			$power = $this->data['power'] = $this->powers->get($id);
-			if (empty($id) || empty($power))
+			$rings = $this->data['rings'] = $this->rings->get($id);
+			if (empty($id) || empty($rings))
 			{
-				flashmsg('You must specify a power to edit.', 'error');
-				redirect('/editor/characters/powers');
+				flashmsg('You must specify a ring to edit.', 'error');
+				redirect('/editor/items/rings');
 			}
 			$this->form_validation->set_rules('name', 'Name', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('defense', 'Defense', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('classes', 'Classes', 'required|trim|xss_clean|integer');
+			$this->form_validation->set_rules('body_location', 'Body Location', 'trim|xss_clean|integer');
+			$this->form_validation->set_rules('cast_time', 'Cast Time', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('image', 'Image', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('description', 'Description', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('class', 'Class', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('zodiac', 'Zodiac', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('race', 'Race', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean');
 			
-			if ($this->form_validation->run() == TRUE && $this->powers->update($id, array(
+			if ($this->form_validation->run() == TRUE && $this->classes->update($id, array(
 																					'name' => $this->input->post('name'),
 																					'description' => $this->input->post('description'),
-																					'class' => $this->input->post('class'),
-																					'zodiac' => $this->input->post('zodiac'),
-																					'race' => $this->input->post('race'),
-																					'level' => $this->input->post('level'),
-																					'attributes' => $this->_parse_attributes($_POST))))
+																					'defense' => $this->input->post('defense'),
+																					'body_location' => $this->input->post('body_location'),
+																					'classes' => $this->input->post('classes'),
+																					'cast_time' => $this->input->post('cast_time'),
+																					'image' => $this->input->post('image'),
+																					'attributes' => $this->_parse_attributes($_POST))
+																					)
 			{
-				// Editing the power was successful, redirect them back to the admin page
-				flashmsg('Ability has been updated successfully.', 'success');
-				redirect('/editor/characters/powers');
+				// Editing the class was successful, redirect them back to the admin page
+				flashmsg('Ring has been updated successfully.', 'success');
+				redirect('/editor/items/rings');
 			}
-			
-		} else if($action=='delete') {
-			$power = $this->data['power'] = $this->powers->get($id);
-			if (empty($id) || empty($power))
+			$all_classes = $this->classes->get_all();
+			$classes = array('' => 'Select one');
+			foreach ($all_classes as $class)
 			{
-				flashmsg('You must specify a power to delete.', 'error');
-				redirect('/editor/characters/powers');
+				$classes[$class->id] = $class->name;
+			}
+			$this->data['classes'] = $classes;
+		} else if($action=='delete') {
+			$rings = $this->data['rings'] = $this->rings->get($id);
+			if (empty($id) || empty($rings))
+			{
+				flashmsg('You must specify a ring to delete.', 'error');
+				redirect('/editor/items/rings');
 			}
 			$this->form_validation->set_rules('confirm', 'confirmation', 'required');
-			$this->form_validation->set_rules('id', 'power ID', 'required|is_natural');
+			$this->form_validation->set_rules('id', 'rings ID', 'required|is_natural');
 			if ($this->form_validation->run() === TRUE)
 			{
 				// Do we really want to delete?
@@ -868,44 +1007,24 @@ class Items extends MY_Controller {
 					// Do we have the right userlevel?
 					if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
 					{
-						$this->powers->delete($id);
+						$this->rings->delete($id);
 					}
 					
 					// Redirect them back to the admin page
-					flashmsg('Ability deleted successfully.', 'success');
-					redirect('/editor/characters/powers');
+					flashmsg('Amulet deleted successfully.', 'success');
+					redirect('/editor/items/rings');
 				}
 				else
 				{
-					redirect('/editor/characters/powers');
+					redirect('/editor/items/rings');
 				}
 			}
 			$this->data['csrf'] = $this->_get_csrf_nonce();
+			
 		}
-		
-		$all_classes = $this->classes->get_all();
-		$classes = array('*' => 'Any');
-		foreach($all_classes as $class) {
-			$classes[$class->id] = $class->name;
-		}
-		$this->data['classes'] = $classes;
-		
-		$all_zodiacs = $this->zodiacs->get_all();
-		$zodiacs = array('*' => 'Any');
-		foreach($all_zodiacs as $zodiac) {
-			$zodiacs[$zodiac->id] = $zodiac->name;
-		}
-		$this->data['zodiacs'] = $zodiacs;
-		
-		$all_races = $this->races->get_all();
-		$races = array('*' => 'Any');
-		foreach($all_races as $race) {
-			$races[$race->id] = $race->name;
-		}
-		$this->data['races'] = $races;
-		$this->data['attributes'] = $this->attributes->get_all();
-		$this->data['powers'] = $this->powers->get_all();
-		$this->data['meta_title'] = 'Character Powers';
+
+		$this->data['rings'] = $this->rings->get_all();
+		$this->data['meta_title'] = 'Rings';
 	}
 	
 }

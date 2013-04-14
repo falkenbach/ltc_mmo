@@ -1,4 +1,3 @@
-<li <?php if($this->uri->segment(3)==''){ ?>class="active"<?php } ?>><a href="<?=base_url('editor/items')?>">All Items</a></li>
 <li <?php if($this->uri->segment(3)=='weapons'){ ?>class="active"<?php } ?>><a href="<?=base_url('editor/items/weapons')?>">Weapons</a></li>
 <li <?php if($this->uri->segment(3)=='armor'){ ?>class="active"<?php } ?>><a href="<?=base_url('editor/items/armor')?>">Armor</a></li>
 <li <?php if($this->uri->segment(3)=='shields'){ ?>class="active"<?php } ?>><a href="<?=base_url('editor/items/shields')?>">Shields</a></li>

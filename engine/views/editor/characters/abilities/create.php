@@ -10,6 +10,8 @@
 		<?=bootstrap_dropdown('class', 'Class', $classes)?>
 		<?=bootstrap_dropdown('zodiac', 'Zodiac', $zodiacs)?>
 		<?=bootstrap_input('level', 'Level Required')?>
+		<?=bootstrap_input('damage', 'Damage Done')?>
+        <?=bootstrap_input('heal', 'Heal Done')?>
 		<legend>Bonus Attribute Points</legend>
 		<?php foreach($attributes as $attr){ ?>
 			<?=bootstrap_input(strtolower($attr->acronym), $attr->name.' +')?>

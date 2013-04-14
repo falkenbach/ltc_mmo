@@ -76,7 +76,6 @@
 						<li <?php if($page=='world_map'){ ?> class="active" <? } ?> id="locations"><a href="<?=base_url('editor/world_map')?>">World Map</a></li>
 						<li <?php if($page=='items'){ ?> class="active" <? } ?> id="items"><a href="<?=base_url('editor/items')?>">Items</a></li>
 						<li <?php if($page=='creatures'){ ?> class="active" <? } ?> id="creatures"><a href="<?=base_url('editor/creatures')?>">Creatures</a></li>
-						<li <?php if($page=='abilities'){ ?> class="active" <? } ?> id="abilities"><a href="<?=base_url('editor/abilities')?>">Abilities</a></li>
 						<li <?php if($page=='quests'){ ?> class="active" <? } ?> id="quests"><a href="<?=base_url('editor/quests')?>">Quests</a></li>
 						<li <?php if($page=='npcs'){ ?> class="active" <? } ?> id="npcs"><a href="<?=base_url('editor/npcs')?>">NPCs</a></li>
 						<li <?php if($page=='characters'){ ?> class="active" <? } ?> id="characters"><a href="<?=base_url('editor/characters')?>">Characters</a></li>

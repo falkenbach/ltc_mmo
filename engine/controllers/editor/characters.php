@@ -755,6 +755,8 @@ class Characters extends MY_Controller {
 			$this->form_validation->set_rules('zodiac', 'Zodiac', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('race', 'Race', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('damage', 'Damage', 'trim|xss_clean');
+			$this->form_validation->set_rules('heal', 'Heal', 'trim|xss_clean');
 			
 			if ($this->form_validation->run() == TRUE && $this->abilities->insert(array(
 																					'name' => $this->input->post('name'),
@@ -763,6 +765,8 @@ class Characters extends MY_Controller {
 																					'zodiac' => $this->input->post('zodiac'),
 																					'race' => $this->input->post('race'),
 																					'level' => $this->input->post('level'),
+																					'damage' => $this->input->post('damage'),
+																					'heal' => $this->input->post('heal'),
 																					'attributes' => $this->_parse_attributes($_POST))))
 			{
 				// Creating the ability was successful, redirect them back to the admin page
@@ -783,6 +787,8 @@ class Characters extends MY_Controller {
 			$this->form_validation->set_rules('zodiac', 'Zodiac', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('race', 'Race', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('level', 'Level', 'required|trim|xss_clean');
+			$this->form_validation->set_rules('damage', 'Damage', 'trim|xss_clean');
+			$this->form_validation->set_rules('heal', 'Heal', 'trim|xss_clean');
 			
 			if ($this->form_validation->run() == TRUE && $this->abilities->update($id, array(
 																					'name' => $this->input->post('name'),
@@ -791,6 +797,8 @@ class Characters extends MY_Controller {
 																					'zodiac' => $this->input->post('zodiac'),
 																					'race' => $this->input->post('race'),
 																					'level' => $this->input->post('level'),
+																					'damage' => $this->input->post('damage'),
+																					'heal' => $this->input->post('heal'),
 																					'attributes' => $this->_parse_attributes($_POST))))
 			{
 				// Editing the ability was successful, redirect them back to the admin page

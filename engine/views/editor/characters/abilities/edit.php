@@ -10,6 +10,8 @@
 		<?=bootstrap_dropdown('class', 'Class', $classes, $ability->class)?>
 		<?=bootstrap_dropdown('zodiac', 'Zodiac', $zodiacs, $ability->zodiac)?>
 		<?=bootstrap_input('level', 'Level Required', $ability->level)?>
+		<?=bootstrap_input('damage', 'Damage Done', $ability->damage)?>
+		<?=bootstrap_input('heal', 'Healing Done', $ability->heal)?>
 		<legend>Bonus Attribute Points</legend>
 		<?php 
 			$ability_attributes = json_decode($ability->attributes, true);

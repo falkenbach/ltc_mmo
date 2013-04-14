@@ -32,9 +32,11 @@ CREATE TABLE IF NOT EXISTS `abilities` (
   `description` varchar(200) NOT NULL,
   `race` int(50) NOT NULL,
   `class` int(50) NOT NULL,
+  `damage` INTEGER,
+  `heal` INTEGER,
   `zodiac` int(50) NOT NULL,
   `level` int(50) NOT NULL DEFAULT '1',
-  `attributes` text NOT NULL,
+  `attributes` text,
   `deleted` int(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
@@ -476,31 +478,113 @@ CREATE TABLE IF NOT EXISTS `creatures` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `abilities` (
+CREATE TABLE IF NOT EXISTS `consumables` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
-  `class` text NOT NULL,
-  `damage` INTEGER,
-  `heal` INTEGER,
-  `modifier` INTEGER,
-  `cast_time` INTEGER NOT NULL,
+  `modified_amount` text,
+  `attributes` TEXT,
+  `classes` TEXT NOT NULL,
+  `level` INTEGER NOT NULL,
+  `stackable` INTEGER NOT NULL DEFAULT 0,
+  `cast_time` INTEGER NOT NULL DEFAULT 0,
   `deleted` INTEGER DEFAULT 0,
+  `body_location` INTEGER,
+  `image` TEXT NOT NULL,
+  `description` TEXT NOT NULL,
+  `active` INTEGER NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `items` (
+CREATE TABLE IF NOT EXISTS `weapons` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `damage` INTEGER,
+  `attributes` TEXT,
+  `classes` TEXT NOT NULL,
+  `level` INTEGER NOT NULL,
+  `stackable` INTEGER NOT NULL DEFAULT 0,
+  `cast_time` INTEGER NOT NULL DEFAULT 0,
+  `deleted` INTEGER DEFAULT 0,
+  `body_location` INTEGER,
+  `image` TEXT NOT NULL,
+  `description` TEXT NOT NULL,
+  `active` INTEGER NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `armor` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `defense` INTEGER,
+  `attributes` TEXT,
+  `classes` TEXT NOT NULL,
+  `level` INTEGER NOT NULL,
+  `deleted` INTEGER DEFAULT 0,
+  `body_location` INTEGER,
+  `image` TEXT NOT NULL,
+  `description` TEXT NOT NULL,
+  `active` INTEGER NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `relics` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `damage` INTEGER,
   `defense` INTEGER,
-  `modified_amount` text,
-  `attributes` INTEGER,
+  `attributes` TEXT,
   `classes` TEXT NOT NULL,
   `level` INTEGER NOT NULL,
-  `stackable` INTEGER NOT NULL,
-  `cast_time` INTEGER NOT NULL,
   `deleted` INTEGER DEFAULT 0,
   `body_location` INTEGER,
+  `image` TEXT NOT NULL,
+  `description` TEXT NOT NULL,
+  `active` INTEGER NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `shields` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `defense` INTEGER,
+  `attributes` TEXT,
+  `classes` TEXT NOT NULL,
+  `level` INTEGER NOT NULL,
+  `deleted` INTEGER DEFAULT 0,
+  `body_location` INTEGER,
+  `image` TEXT NOT NULL,
+  `description` TEXT NOT NULL,
+  `active` INTEGER NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `rings` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `defense` INTEGER,
+  `attributes` TEXT,
+  `classes` TEXT NOT NULL,
+  `level` INTEGER NOT NULL,
+  `deleted` INTEGER DEFAULT 0,
+  `body_location` INTEGER,
+  `image` TEXT NOT NULL,
+  `description` TEXT NOT NULL,
+  `active` INTEGER NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `amulets` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `defense` INTEGER,
+  `modified_amount` text,
+  `attributes` TEXT,
+  `classes` TEXT NOT NULL,
+  `level` INTEGER NOT NULL,
+  `deleted` INTEGER DEFAULT 0,
+  `body_location` INTEGER,
+  `image` TEXT NOT NULL,
+  `description` TEXT NOT NULL,
   `active` INTEGER NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
