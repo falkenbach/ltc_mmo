@@ -30,9 +30,10 @@
 				<td><?=$item->classes?></td>
 				<td><?=$item->stackable?></td>
 				<td><?=$item->cast_time?></td>
+				<td><?=($item->active) ? anchor(base_url('editor/items/deactivate/'.$item->id), 'Active') : anchor(base_url('editor/items/activate/'.$item->id), 'Inactive'); ?></td>
 				<td>
-					<a href="<?=base_url('editor/characters/edit/'.$character->id)?>"><i class="icon-pencil"></i></a>
-					<a href="<?=base_url('editor/characters/delete/'.$character->id)?>"><i class="icon-trash"></i></a>
+					<a href="<?=base_url('editor/items/edit/'.$item->id)?>"><i class="icon-pencil"></i></a>
+					<a href="<?=base_url('editor/items/delete/'.$item->id)?>"><i class="icon-trash"></i></a>
 				</td>
 			</tr>
 		<?php endforeach; ?>

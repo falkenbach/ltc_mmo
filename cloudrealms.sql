@@ -495,11 +495,13 @@ CREATE TABLE IF NOT EXISTS `items` (
   `defense` INTEGER,
   `modified_amount` text,
   `attributes` INTEGER,
-  `classes` TEXT,
-  `level` INTEGER,
-  `stackable` INTEGER,
-  `cast_time` INTEGER,
+  `classes` TEXT NOT NULL,
+  `level` INTEGER NOT NULL,
+  `stackable` INTEGER NOT NULL,
+  `cast_time` INTEGER NOT NULL,
   `deleted` INTEGER DEFAULT 0,
+  `body_location` INTEGER,
+  `active` INTEGER NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
