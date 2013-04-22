@@ -1,32 +1,29 @@
 <div class="pane">
 	<div class="page-header">
-		<a href="<?=base_url('editor/characters/skills/create')?>" class="btn pull-right">Create Skill</a>
+		<a href="<?=base_url('editor/items/consumables/create')?>" class="btn pull-right">Create Consumable</a>
 		<a href="javascript:$('.info').slideToggle();" class="btn btn-info pull-right"><i class="icon-white icon-info-sign" style="margin-top:3px;"></i> Toggle Info</a>
-		<h1>All Skills</h1>
-		<p class="info" style="display:none;">Skills represent actions that can be taken in game. 
-		Skill points are a measure of how proficient the player is at these skills and increasing them grants benefits to the skill as well as granting access to perks that may be taken upon leveling up.</p>
+		<h1>All Consumables</h1>
+		<p class="info" style="display:none;">Consumables are your health potions, mana potions, antidotes, etc...</p>
 	</div>
 	<table class="table">
 		<thead>
 			<tr>
 				<th>Name</th>
 				<th>Description</th>
-				<th>Class</th>
-				<th>Actions</th>
+				<th>Modified Amount</th>
 			</tr>
 		</thead>
 		<tbody>
 		<?php 
-			foreach ($skills as $skill): 
-			$class = $this->classes->get($skill->class);
+			foreach ($consumables as $consumable): 
 		?>
 			<tr>
-				<td><?=$skill->name?></td>
-				<td><?=$skill->description?></td>
-				<td><?=$class->name?></td>
+				<td><?=$consumable->name?></td>
+				<td><?=$consumable->description?></td>
+				<td><?=$consumable->modified_amount?></td>
 				<td>
-					<a href="<?=base_url('editor/characters/skills/edit/'.$skill->id)?>"><i class="icon-pencil"></i></a>
-					<a href="<?=base_url('editor/characters/skills/delete/'.$skill->id)?>"><i class="icon-trash"></i></a>
+					<a href="<?=base_url('editor/items/consumables/edit/'.$consumable->id)?>"><i class="icon-pencil"></i></a>
+					<a href="<?=base_url('editor/items/consumables/delete/'.$consumable->id)?>"><i class="icon-trash"></i></a>
 				</td>
 			</tr>
 		<?php endforeach; ?>

@@ -1,26 +1,26 @@
 <div class="pane">
 	<div class="page-header">
-		<a href="<?=base_url('editor/characters/attributes/create')?>" class="btn pull-right">Create Attribute</a>
-		<h1>All Attributes</h1>
+		<a href="<?=base_url('editor/items/shields/create')?>" class="btn pull-right">Create Shield</a>
+		<h1>All Shields</h1>
 	</div>
 	<table class="table">
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Acronym</th>
+				<th>Level</th>
 				<th>Description</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($attributes as $attr): ?>
+		<?php foreach ($shields as $shield): ?>
 			<tr>
-				<td><?=$attr->name?></td>
-				<td><?=$attr->acronym?></td>
-				<td><?=$attr->description?></td>
+				<td><?=$shield->name?></td>
+				<td><?=$shield->acronym?></td>
+				<td><?=$shield->description?></td>
 				<td>
-					<a href="<?=base_url('editor/characters/attributes/edit/'.$attr->id)?>"><i class="icon-pencil"></i></a>
-					<a href="<?=base_url('editor/characters/attributes/delete/'.$attr->id)?>"><i class="icon-trash"></i></a>
+					<a href="<?=base_url('editor/items/shields/edit/'.$shield->id)?>"><i class="icon-pencil"></i></a>
+					<a href="<?=base_url('editor/items/shields/delete/'.$shield->id)?>"><i class="icon-trash"></i></a>
 				</td>
 			</tr>
 		<?php endforeach; ?>

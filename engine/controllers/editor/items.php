@@ -5,7 +5,7 @@ class Items extends MY_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('consumables_model', 'items');
+		$this->load->model('consumables_model', 'consumables');
 		$this->load->model('class_model', 'classes');
 		$this->load->model('attribute_model', 'attributes');
 		$this->load->model('weapons_model', 'weapons');
@@ -184,7 +184,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Creating the attr was successful, redirect them back to the admin page
 				flashmsg('Weapon created successfully.', 'success');
@@ -225,7 +225,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Editing the class was successful, redirect them back to the admin page
 				flashmsg('Weapon has been updated successfully.', 'success');
@@ -277,6 +277,7 @@ class Items extends MY_Controller {
 			
 		}
 
+		$this->data['attributes'] = $this->attributes->get_all();
 		$this->data['weapons'] = $this->weapons->get_all();
 		$this->data['meta_title'] = 'Weapons';
 	}
@@ -308,7 +309,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Creating the attr was successful, redirect them back to the admin page
 				flashmsg('Armor created successfully.', 'success');
@@ -347,7 +348,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Editing the class was successful, redirect them back to the admin page
 				flashmsg('Armor has been updated successfully.', 'success');
@@ -399,6 +400,7 @@ class Items extends MY_Controller {
 			
 		}
 
+		$this->data['attributes'] = $this->attributes->get_all();
 		$this->data['armor'] = $this->armor->get_all();
 		$this->data['meta_title'] = 'Armor';
 	}
@@ -430,7 +432,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Creating the attr was successful, redirect them back to the admin page
 				flashmsg('Shield created successfully.', 'success');
@@ -469,7 +471,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Editing the class was successful, redirect them back to the admin page
 				flashmsg('Shield has been updated successfully.', 'success');
@@ -521,6 +523,7 @@ class Items extends MY_Controller {
 			
 		}
 
+		$this->data['attributes'] = $this->attributes->get_all();
 		$this->data['shields'] = $this->shields->get_all();
 		$this->data['meta_title'] = 'Shields';
 	}
@@ -552,7 +555,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Creating the attr was successful, redirect them back to the admin page
 				flashmsg('Amulet created successfully.', 'success');
@@ -591,7 +594,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Editing the class was successful, redirect them back to the admin page
 				flashmsg('Amulet has been updated successfully.', 'success');
@@ -643,6 +646,7 @@ class Items extends MY_Controller {
 			
 		}
 
+		$this->data['attributes'] = $this->attributes->get_all();
 		$this->data['amulets'] = $this->amulets->get_all();
 		$this->data['meta_title'] = 'Amulets';
 	}
@@ -686,7 +690,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Creating the attr was successful, redirect them back to the admin page
 				flashmsg('Relic created successfully.', 'success');
@@ -727,7 +731,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Editing the class was successful, redirect them back to the admin page
 				flashmsg('Relic has been updated successfully.', 'success');
@@ -810,7 +814,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Creating the attr was successful, redirect them back to the admin page
 				flashmsg('Consumable created successfully.', 'success');
@@ -849,7 +853,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Editing the class was successful, redirect them back to the admin page
 				flashmsg('Consumable has been updated successfully.', 'success');
@@ -901,6 +905,7 @@ class Items extends MY_Controller {
 			
 		}
 
+		$this->data['attributes'] = $this->attributes->get_all();
 		$this->data['consumables'] = $this->consumables->get_all();
 		$this->data['meta_title'] = 'Consumables';
 	}
@@ -932,7 +937,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Creating the attr was successful, redirect them back to the admin page
 				flashmsg('Ring created successfully.', 'success');
@@ -971,7 +976,7 @@ class Items extends MY_Controller {
 																					'cast_time' => $this->input->post('cast_time'),
 																					'image' => $this->input->post('image'),
 																					'attributes' => $this->_parse_attributes($_POST))
-																					)
+																					))
 			{
 				// Editing the class was successful, redirect them back to the admin page
 				flashmsg('Ring has been updated successfully.', 'success');
@@ -1023,6 +1028,7 @@ class Items extends MY_Controller {
 			
 		}
 
+		$this->data['attributes'] = $this->attributes->get_all();
 		$this->data['rings'] = $this->rings->get_all();
 		$this->data['meta_title'] = 'Rings';
 	}

@@ -8,7 +8,7 @@
 		<?=bootstrap_input('level', 'Level')?>
 		<?=bootstrap_input('damage', 'Damage')?>
 		<?=bootstrap_dropdown('classes', 'Classes',$classes)?>
-		<?=bootstrap_input('body_location','Body Location'?>
+		<?=bootstrap_input('body_location','Body Location')?>
 		<?=bootstrap_input('stackable', 'Stackable')?>
 		<?=bootstrap_input('image', 'Image')?>
 		<?=bootstrap_input('cast_time', 'Cast Time')?>

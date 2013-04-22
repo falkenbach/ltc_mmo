@@ -9,7 +9,7 @@
 		<?=bootstrap_input('damage', 'Damage')?>
 		<?=bootstrap_input('defense', 'Defense')?>
 		<?=bootstrap_dropdown('classes', 'Classes',$classes)?>
-		<?=bootstrap_input('body_location','Body Location'?>
+		<?=bootstrap_input('body_location','Body Location')?>
 		<?=bootstrap_input('image', 'Image')?>
 		<legend>Attribute Points</legend>
 		<?php foreach($attributes as $attr){ ?>

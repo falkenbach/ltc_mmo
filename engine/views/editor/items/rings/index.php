@@ -1,7 +1,7 @@
 <div class="pane">
 	<div class="page-header">
-		<a href="<?=base_url('editor/characters/zodiacs/create')?>" class="btn pull-right">Create Zodiac</a>
-		<h1>All Zodiacs</h1>
+		<a href="<?=base_url('editor/items/rings/create')?>" class="btn pull-right">Create Ring</a>
+		<h1>All Ring</h1>
 	</div>
 	<table class="table">
 		<thead>
@@ -13,14 +13,14 @@
 			</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($zodiacs as $zodiac): ?>
+		<?php foreach ($rings as $ring): ?>
 			<tr>
-				<td><?=$zodiac->name?></td>
-				<td><?=$zodiac->description?></td>
-				<td><?=$zodiac->attributes?></td>
+				<td><?=$ring->name?></td>
+				<td><?=$ring->description?></td>
+				<td><?=$ring->attributes?></td>
 				<td>
-					<a href="<?=base_url('editor/characters/zodiacs/edit/'.$zodiac->id)?>"><i class="icon-pencil"></i></a>
-					<a href="<?=base_url('editor/characters/zodiacs/delete/'.$zodiac->id)?>"><i class="icon-trash"></i></a>
+					<a href="<?=base_url('editor/items/rings/edit/'.$ring->id)?>"><i class="icon-pencil"></i></a>
+					<a href="<?=base_url('editor/items/rings/delete/'.$ring->id)?>"><i class="icon-trash"></i></a>
 				</td>
 			</tr>
 		<?php endforeach; ?>
