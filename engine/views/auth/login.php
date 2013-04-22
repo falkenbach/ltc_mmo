@@ -4,7 +4,7 @@
 			<h2 style="text-align:center;"><img src="<?=base_url('public/img/logo.png')?>" alt="<?=$settings['game_title']?>"></h2>
 			<div class="tab-content start-content">
 				<div class="tab-pane" id="updates">
-					<p>Updates</p>
+					<?=$settings['updates']?>
 				</div>
 				<div class="tab-pane active" id="login">
 					<?=form_open(current_url(), 'class="form-vertical"')?>
@@ -24,7 +24,7 @@
 					<?=form_close()?>
 				</div>
 				<div class="tab-pane" id="credits">
-				
+				<?=$settings['credits']?>
 				</div>
 			</div>
 			<!-- Selection -->
@@ -33,7 +33,7 @@
 				<li class="active"><a href="#login" data-toggle="tab">Login</a></li>
 				<li><a href="#credits" data-toggle="tab">Credits</a></li>
 				<li><a href="<?=base_url('auth/register')?>" >Register</a></li>
-			</ul>
+			</ul><p style="margin-left:auto;margin-right:auto;text-align:center"><?=$settings['version']?> <?=$settings['site_name']?> 2013</p>
 		</div>
 	</div>
 </div>

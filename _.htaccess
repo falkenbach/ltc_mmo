@@ -2,6 +2,7 @@ Options +FollowSymLinks
 Options -SymLinksIfOwnerMatch
 
 RewriteEngine on
+RewriteBase /ltc_mmo/
 
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^(.*)$ http://%1/$1 [R=301,L]

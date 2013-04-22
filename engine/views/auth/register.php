@@ -36,7 +36,7 @@
 					<?=form_submit('submit', 'Register', 'class="btn btn-primary btn-large btn-block"')?>
 					<a href="<?=base_url()?>" class="btn btn-danger btn-large btn-block">Cancel</a>
 				<?=form_close()?>
-			</div>
+			</div><p style="margin-left:auto;margin-right:auto;text-align:center"><?=$settings['version']?> <?=$settings['site_name']?> 2013</p>
 		</div>
 	</div>
 </div>

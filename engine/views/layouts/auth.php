@@ -2,10 +2,10 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title><?=$settings['game_title']?></title>
+		<title><?=$settings['game_title']?> <?=$settings['version']?> </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
-		<meta name="author" content="Ronald A. Richardson">
+		<meta name="author" content="<?=$settings['site_name']?>">
 		<!-- Stylesheets -->
 		<link href="<?=base_url('public/css/bootstrap.css')?>" rel="stylesheet">
 		<link href="<?=base_url('public/css/bootstrap-responsive.css')?>" rel="stylesheet">
