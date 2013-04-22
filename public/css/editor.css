@@ -1,5 +1,5 @@
 body, html {
-	background: url('../../public/img/tasky_pattern.png') repeat #4CB3FC;
+	background:#555; /*url('../../public/img/tasky_pattern.png') repeat #4CB3FC;*/
 	padding-top: 30px;
 	padding-bottom: 20px;
 }

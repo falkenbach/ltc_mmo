@@ -2,10 +2,10 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Cloudrealms Editor v3</title>
+		<title><?=$settings['game_title']?> <?=$settings['version']?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
-		<meta name="author" content="Ronald A. Richardson">
+		<meta name="author" content="<?=$settings['site_name']?>">
 		<!-- Stylesheets -->
 		<link href="<?=base_url()?>public/css/bootstrap.css" rel="stylesheet">
 		<link href="<?=base_url()?>public/css/editor.css" rel="stylesheet">
@@ -44,7 +44,7 @@
 	<div class="navbar navbar-fixed-top" style="z-index:99999999999999999;">
 		<div class="navbar-inner">
 			<div class="container" style="width:1300px;">
-				<a class="brand" href="#">cloudrealms v3 editor</a>
+				<a class="brand" href="#"><?=$settings['game_title']?> <?=$settings['version']?>  Editor</a>
 				<div class="nav-collapse">
 					<ul class="nav">
 						<li <?php if($page==''||$page=='dashboard'){ ?> class="active" <? } ?> id="dashboard"><a href="<?=base_url('editor')?>">Home</a></li>
