@@ -1,8 +1,8 @@
 <div class="pane">
 	<div class="page-header">
-		<h1>Delete Power</h1>
+		<h1>Delete Relic</h1>
 	</div>
-	<p>Are you sure you want to delete this power '<?=$power->name?>'?</p>
+	<p>Are you sure you want to delete this relic '<?=$relics->name?>'?</p>
 	<?=form_open(current_url())?>
 		<div class="control-group">
 			<div class="controls">
@@ -11,10 +11,10 @@
 			</div>
 		</div>
 		<?=form_hidden($csrf)?>
-		<?=form_hidden(array('id' => $power->id))?>
+		<?=form_hidden(array('id' => $relics->id))?>
 		<div class="form-actions">
 			<?=bootstrap_submit('submit', 'Delete', 'class="btn btn-danger"')?>
-			<a href="<?=base_url('editor/characters/powers')?>" class="btn">Cancel</a>
+			<a href="<?=base_url('editor/items/relics')?>" class="btn">Cancel</a>
 		</div>
 	<?=form_close()?>
 </div>
