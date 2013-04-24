@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.10.1
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Oct 25, 2012 at 10:39 AM
--- Server version: 5.5.20
--- PHP Version: 5.3.10
+-- Host: 127.0.0.1
+-- Generation Time: Apr 24, 2013 at 03:15 AM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -146,6 +146,25 @@ INSERT INTO `classes` (`id`, `name`, `description`, `attributes`, `img`, `delete
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `creatures`
+--
+
+CREATE TABLE IF NOT EXISTS `creatures` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text NOT NULL,
+  `hp` int(11) NOT NULL,
+  `mana` int(11) NOT NULL,
+  `experience` int(11) NOT NULL,
+  `monetary_reward` int(11) DEFAULT NULL,
+  `item_reward` int(11) DEFAULT NULL,
+  `location` int(11) DEFAULT NULL,
+  `deleted` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `groups`
 --
 
@@ -163,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
 --
 
 INSERT INTO `groups` (`id`, `name`, `description`, `permissions`, `deleted`) VALUES
-(1, 'admin', 'Administrator', '{"auth":"1","uploader":"1","abilities":"1","ajax":"1","characters":"1","creatures":"1","dashboard":"1","groups":"1","map":"1","items":"1","npcs":"1","options":"1","permissions":"1","players":"1","quests":"1","resources":"1","ui":"1","world_map":"1"}', 0),
+(1, 'admin', 'Administrator', '{"auth":"1","uploader":"1","abilities":"1","ajax":"1","characters":"1","creatures":"1","dashboard":"1","groups":"1","items":"1","map":"1","npc":"1","npcs":"1","options":"1","permissions":"1","players":"1","quests":"1","resources":"1","ui":"1","world_map":"1"}', 0),
 (2, 'members', 'General User', '{"auth":"1"}', 0),
 (3, 'guest', 'Guest User', '{"auth":"1"}', 0),
 (4, 'Masters', 'MP', NULL, 1);
@@ -183,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `history` (
   `row_id` int(11) DEFAULT NULL,
   `row_data` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=58 ;
 
 --
 -- Dumping data for table `history`
@@ -240,7 +259,33 @@ INSERT INTO `history` (`id`, `table_name`, `action`, `user_id`, `updated_at`, `r
 (51, 'skills', 'update', 1, 1351155942, 1, '{"name":"Archery","description":"Archery is one of three offensive weapon-based skills","class":"1"}'),
 (52, 'races', 'create', 1, 1351158689, 1, '{"name":"Human","description":"Humans are the most populated race in the game","attributes":"{\\"sta\\":\\"10\\",\\"str\\":\\"10\\",\\"dex\\":\\"10\\",\\"int\\":\\"10\\",\\"cha\\":\\"10\\",\\"wis\\":\\"10\\",\\"wil\\":\\"10\\",\\"luc\\":\\"10\\"}"}'),
 (53, 'abilities', 'create', 1, 1351159628, 1, '{"name":"Highborn","description":"Human receive 50 more intelligence at birth","class":"*","zodiac":"*","race":"1","level":"1","attributes":"{\\"sta\\":\\"\\",\\"str\\":\\"\\",\\"dex\\":\\"\\",\\"int\\":\\"50\\",\\"cha\\":\\"\\",\\"wis\\":\\"\\",\\"wil\\":\\"\\",\\"luc\\":\\"\\"}"}'),
-(54, 'abilities', 'update', 1, 1351160325, 1, '{"name":"Highborn","description":"Human receive 20 more intelligence at birth","class":"*","zodiac":"*","race":"1","level":"1","attributes":"{\\"sta\\":\\"\\",\\"str\\":\\"\\",\\"dex\\":\\"\\",\\"int\\":\\"20\\",\\"cha\\":\\"\\",\\"wis\\":\\"\\",\\"wil\\":\\"\\",\\"luc\\":\\"\\"}"}');
+(54, 'abilities', 'update', 1, 1351160325, 1, '{"name":"Highborn","description":"Human receive 20 more intelligence at birth","class":"*","zodiac":"*","race":"1","level":"1","attributes":"{\\"sta\\":\\"\\",\\"str\\":\\"\\",\\"dex\\":\\"\\",\\"int\\":\\"20\\",\\"cha\\":\\"\\",\\"wis\\":\\"\\",\\"wil\\":\\"\\",\\"luc\\":\\"\\"}"}'),
+(55, 'groups', 'update', 1, 1366428463, 1, '{"permissions":"{\\"auth\\":\\"1\\",\\"uploader\\":\\"1\\",\\"abilities\\":\\"1\\",\\"ajax\\":\\"1\\",\\"characters\\":\\"1\\",\\"creatures\\":\\"1\\",\\"dashboard\\":\\"1\\",\\"groups\\":\\"1\\",\\"items\\":\\"1\\",\\"map\\":\\"1\\",\\"npc\\":\\"1\\",\\"npcs\\":\\"1\\",\\"options\\":\\"1\\",\\"permissions\\":\\"1\\",\\"players\\":\\"1\\",\\"quests\\":\\"1\\",\\"resources\\":\\"1\\",\\"ui\\":\\"1\\",\\"world_map\\":\\"1\\"}"}'),
+(56, 'groups', 'update', 1, 1366428463, 2, '{"permissions":"{\\"auth\\":\\"1\\"}"}'),
+(57, 'groups', 'update', 1, 1366428463, 3, '{"permissions":"{\\"auth\\":\\"1\\"}"}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `items`
+--
+
+CREATE TABLE IF NOT EXISTS `items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `damage` int(11) DEFAULT NULL,
+  `defense` int(11) DEFAULT NULL,
+  `modified_amount` text,
+  `attributes` int(11) DEFAULT NULL,
+  `classes` text NOT NULL,
+  `level` int(11) NOT NULL,
+  `stackable` int(11) NOT NULL,
+  `cast_time` int(11) NOT NULL,
+  `deleted` int(11) DEFAULT '0',
+  `body_location` int(11) DEFAULT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -282,14 +327,88 @@ CREATE TABLE IF NOT EXISTS `meta` (
   `company` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `meta`
 --
 
 INSERT INTO `meta` (`id`, `user_id`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, 1, 'Admin', 'istrator', 'ADMIN', '0');
+(1, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(2, 2, 'bobby', 'blue', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `npcs`
+--
+
+CREATE TABLE IF NOT EXISTS `npcs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `verbiage` text NOT NULL,
+  `location` text NOT NULL,
+  `deleted` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quests`
+--
+
+CREATE TABLE IF NOT EXISTS `quests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `verbiage` text NOT NULL,
+  `giver` int(11) NOT NULL,
+  `turnin` int(11) NOT NULL,
+  `monetary_reward` int(11) DEFAULT NULL,
+  `item_reward` int(11) DEFAULT NULL,
+  `experience` int(11) DEFAULT NULL,
+  `deleted` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quest_actions`
+--
+
+CREATE TABLE IF NOT EXISTS `quest_actions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `quest_actions`
+--
+
+INSERT INTO `quest_actions` (`id`, `description`) VALUES
+(1, 'Kill'),
+(2, 'Find'),
+(3, 'Save'),
+(4, 'Talk To');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quest_requirements`
+--
+
+CREATE TABLE IF NOT EXISTS `quest_requirements` (
+  `qid` int(11) NOT NULL,
+  `mob_id` int(11) DEFAULT NULL,
+  `mob_quantity` int(11) DEFAULT NULL,
+  `mob_action` int(11) DEFAULT NULL,
+  `npc_id` int(11) DEFAULT NULL,
+  `npc_action` int(11) DEFAULT NULL,
+  `item_id` int(11) DEFAULT NULL,
+  `item_quantity` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -329,16 +448,20 @@ CREATE TABLE IF NOT EXISTS `settings` (
   PRIMARY KEY (`option_id`,`option_name`),
   KEY `option_name` (`option_name`),
   KEY `auto_load` (`auto_load`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `settings`
 --
 
 INSERT INTO `settings` (`option_id`, `option_name`, `option_value`, `option_group`, `auto_load`) VALUES
-(1, 'site_name', 'SITE NAME', 'site', 'yes'),
-(2, 'game_title', 'LTC MMO', 'addon', 'yes'),
-(3, 'test', 'test', 'addon', 'yes');
+(1, 'site_name', 'CoinGamers.com', 'site', 'yes'),
+(2, 'game_title', 'AfterLite', 'addon', 'yes'),
+(3, 'test', 'test', 'addon', 'yes'),
+(4, 'version', 'v.0.1.0', 'addon', 'yes'),
+(5, 'updates', '<p>Updates</p>\r\n- Added new installer</br>\r\n- Added new Editor Functionality</br>\r\n- Fixed page linking issues</br>\r\n- Changed Background</br>\r\n- Updated Logo</br>\r\n- Updated Database</br>\r\n- oh and fixed this update window :)</br>\r\n', 'addon', 'yes'),
+(6, 'credits', '<p>Credits</p>\r\nbels - Project Leader</br>\r\nitsokrelax - The Suit</br>\r\nUKMark - The Muscle</br>\r\nShad3d1 - The Brains</br>', 'addon', 'yes'),
+(7, 'credits', '<p>Credits</p>\r\nbels - Project Leader</br>\r\nitsokrelax - The Suit</br>\r\nUKMark - The Muscle</br>\r\nShad3d1 - The Brains</br>\r\ntheprestig3 - O.A.', 'addon', 'yes');
 
 -- --------------------------------------------------------
 
@@ -390,7 +513,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `group_id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `remember_code`, `created_on`, `last_login`, `active`) VALUES
-(1, 1, '127.0.0.1', 'administrator', '59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4', '9462e8eee0', 'admin@admin.com', '', NULL, NULL, 1268889823, 1351153322, 1);
+(1, 1, '127.0.0.1', 'administrator', '59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4', '9462e8eee0', 'admin@admin.com', '', NULL, NULL, 1268889823, 1366566793, 1);
 
 -- --------------------------------------------------------
 
